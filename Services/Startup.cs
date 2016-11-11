@@ -1,4 +1,6 @@
 using HMServices.Models;
+using HMServices.Repositories;
+using HMServices.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -51,6 +53,9 @@ namespace HMServices
 
             // Add framework services.
             services.AddMvc();
+
+            services.AddScoped<ISymbolRepository, SymbolRepository>();
+            services.AddScoped<ISECService, SECService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
