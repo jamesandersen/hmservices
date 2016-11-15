@@ -62,7 +62,7 @@ namespace HMServices
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            loggerFactory.AddDebug(LogLevel.Trace);
 
             app.UseCors(builder =>  builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyOrigin());
 

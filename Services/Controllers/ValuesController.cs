@@ -3,6 +3,7 @@ using HMServices.Models;
 using Microsoft.AspNetCore.Mvc;
 using HMServices.Services;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace HMServices.Controllers
 {
@@ -10,15 +11,18 @@ namespace HMServices.Controllers
     public class ValuesController : Controller
     {
         private readonly ISECService _secService;
+        private readonly ILogger<ValuesController> _logger;
 
-        public ValuesController(ISECService secService) {
+        public ValuesController(ISECService secService, ILogger<ValuesController> logger) {
             _secService = secService;
+            _logger = logger;
         }
 
         // GET api/values
         [HttpGet]
         public async Task<IEnumerable<Symbol>> Get()
         {
+            _logger.LogTrace("Get Values!");
             return await _secService.GetSymbols();
         }
 

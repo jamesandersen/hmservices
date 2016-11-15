@@ -6,15 +6,18 @@ namespace Services.Tests.Controllers
     using Xunit;
     using Moq;
     using System.Threading.Tasks;
+    using Microsoft.Extensions.Logging;
 
     public class ValuesTests
     {
         private Mock<ISECService> _mockSECService;
+        private Mock<ILogger<ValuesController>> _mockLogger;
         private readonly ValuesController _valueController;
 
         public ValuesTests() {
             _mockSECService = new Mock<ISECService>();
-            _valueController = new ValuesController(_mockSECService.Object);
+            _mockLogger = new Mock<ILogger<ValuesController>>();
+            _valueController = new ValuesController(_mockSECService.Object, _mockLogger.Object);
         }
         
         [Fact]
