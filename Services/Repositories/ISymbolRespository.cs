@@ -6,5 +6,7 @@ namespace HMServices.Repositories {
 
     public interface ISymbolRepository {
         Task<IEnumerable<Symbol>> GetSymbols();
+
+        Task<Symbol> GetSymbolByTicker(string ticker);
     }
 }

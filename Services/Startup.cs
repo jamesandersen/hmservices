@@ -1,3 +1,4 @@
+using HMServices.Infrastructure;
 using HMServices.Models;
 using HMServices.Repositories;
 using HMServices.Services;
@@ -63,6 +64,8 @@ namespace HMServices
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug(LogLevel.Trace);
+
+            app.UseMiddleware<HttpExceptionMiddleware>();
 
             app.UseCors(builder =>  builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyOrigin());
 
