@@ -6,7 +6,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/Services/bin/Debug/netcoreapp1.0/HMServices.dll",
+            "program": "${workspaceRoot}/Services/bin/Debug/netcoreapp1.1/Services.dll",
             "args": [],
             "cwd": "${workspaceRoot}/Services/",
             "stopAtEntry": false,

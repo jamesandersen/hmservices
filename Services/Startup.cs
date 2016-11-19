@@ -1,4 +1,7 @@
+using HMServices.Infrastructure;
 using HMServices.Models;
+using HMServices.Repositories;
+using HMServices.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -51,13 +54,18 @@ namespace HMServices
 
             // Add framework services.
             services.AddMvc();
+
+            services.AddScoped<ISymbolRepository, SymbolRepository>();
+            services.AddScoped<ISECService, SECService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            loggerFactory.AddDebug(LogLevel.Trace);
+
+            app.UseMiddleware<HttpExceptionMiddleware>();
 
             app.UseCors(builder =>  builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyOrigin());
 

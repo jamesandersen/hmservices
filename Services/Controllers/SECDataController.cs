@@ -1,5 +1,6 @@
-using System.Collections.Generic;
+using System.Net;
 using HMServices.Models;
+using HMServices.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using HMServices.Services;
 using System.Threading.Tasks;
@@ -8,22 +9,27 @@ using Microsoft.Extensions.Logging;
 namespace HMServices.Controllers
 {
     [Route("api/[controller]")]
-    public class ValuesController : Controller
+    public class SECDataController : Controller
     {
         private readonly ISECService _secService;
         private readonly ILogger<ValuesController> _logger;
 
-        public ValuesController(ISECService secService, ILogger<ValuesController> logger) {
+        public SECDataController(ISECService secService, ILogger<ValuesController> logger) {
             _secService = secService;
             _logger = logger;
         }
 
         // GET api/values
-        [HttpGet]
-        public async Task<IEnumerable<Symbol>> Get()
+        [HttpGet("{ticker}/symbol")]
+        public async Task<Symbol> GetSymbol(string ticker)
         {
-            _logger.LogTrace("Get Values!");
-            return await _secService.GetSymbols();
+            _logger.LogTrace(string.Format("Get {0} symbol", ticker));
+            var symbol = await _secService.GetSymbolByTicker(ticker);
+
+            if (symbol != null) return symbol;
+
+            
+            throw new HttpException(HttpStatusCode.NotFound);
         }
 
         // GET api/values/5
