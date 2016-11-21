@@ -2,6 +2,7 @@ using HMServices.Models;
 using HMServices.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace HMServices.Services
 {
@@ -11,6 +12,11 @@ namespace HMServices.Services
 
         public SECService(ISymbolRepository symbolRepo) {
             this._symbolRepo = symbolRepo;
+        }
+
+        public Task<Filing> GetMostRecentFilingByTicker(string ticker, string type)
+        {
+            return this._symbolRepo.GetMostRecentFilingByTicker(ticker, type);
         }
 
         public Task<Symbol> GetSymbolByTicker(string ticker)

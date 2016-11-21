@@ -19,7 +19,7 @@ namespace HMServices.Controllers
             _logger = logger;
         }
 
-        // GET api/values
+        // GET api/secdata/AAPL/symbol
         [HttpGet("{ticker}/symbol")]
         public async Task<Symbol> GetSymbol(string ticker)
         {
@@ -27,7 +27,18 @@ namespace HMServices.Controllers
             var symbol = await _secService.GetSymbolByTicker(ticker);
 
             if (symbol != null) return symbol;
+            
+            throw new HttpException(HttpStatusCode.NotFound);
+        }
 
+        // GET api/secdata/AAPL/filing
+        [HttpGet("{ticker}/filing")]
+        public async Task<Filing> GetMostRecentFiling(string ticker, string type = "10-K")
+        {
+            _logger.LogTrace(string.Format("Get {0} most recent {1} filing", ticker, type));
+            var filing = await _secService.GetMostRecentFilingByTicker(ticker, type);
+
+            if (filing != null) return filing;
             
             throw new HttpException(HttpStatusCode.NotFound);
         }
