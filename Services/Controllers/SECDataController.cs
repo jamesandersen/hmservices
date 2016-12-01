@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using HMServices.Services;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace HMServices.Controllers
 {
@@ -43,11 +44,12 @@ namespace HMServices.Controllers
             throw new HttpException(HttpStatusCode.NotFound);
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // GET api/secdata/search/AM e.g AMZN
+        [HttpGet("search/{query}")]
+        public async Task<IEnumerable<Symbol>> SearchSymbol(string query)
         {
-            return "value";
+            _logger.LogTrace(string.Format("Searching for symbols starting with {0}", query));
+            return await _secService.SearchSymbols(query);
         }
 
         // POST api/values
