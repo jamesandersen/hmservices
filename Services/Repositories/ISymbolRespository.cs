@@ -8,5 +8,7 @@ namespace HMServices.Repositories {
         Task<IEnumerable<Symbol>> GetSymbols();
 
         Task<Symbol> GetSymbolByTicker(string ticker);
+
+        Task<Filing> GetMostRecentFilingByTicker(string ticker, string type);
     }
 }

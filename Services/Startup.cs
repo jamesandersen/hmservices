@@ -67,7 +67,7 @@ namespace HMServices
 
             app.UseMiddleware<HttpExceptionMiddleware>();
 
-            app.UseCors(builder =>  builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyOrigin());
+            app.UseCors(builder =>  builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseMvc();
 
