@@ -28,5 +28,10 @@ namespace HMServices.Services
         {
             return _symbolRepo.GetSymbols();
         }
+
+        public Task<IEnumerable<Symbol>> SearchSymbols(string tickerQuery)
+        {
+            return _symbolRepo.SearchSymbols(tickerQuery);
+        }
     }
 }
