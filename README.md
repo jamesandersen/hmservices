@@ -21,3 +21,12 @@ SECOptions:MongoConnectionString=mongodb://192.168.1.53:27017
 ```
 docker run -it -p 8080:5000 -e "SECOptions:MongoConnectionString=mongodb://192.168.1.53:27017" -e "SECOptions:DatabaseName=secdata" secservices
 ```
+
+## Docker - DotNet Core Runtime Only
+
+dotnet restore
+dotnet publish -c Release -o out
+docker build -f Dockerfile.runtime -t secservices-runtime .
+--docker run dotnetapp Hello .NET Core from Docker
+docker run -p 8080:5000 -e "SECOptions:MongoConnectionString=mongodb://192.168.1.53:27017" -e "SECOptions:DatabaseName=secdata" secservices-runtime
+
