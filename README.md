@@ -35,3 +35,9 @@ docker run -p 8080:5000 -e "SECOptions:MongoConnectionString=mongodb://192.168.1
 * the `nginx.conf` is copied into the standard nginx image and it expects host names of `appx.local` or `www.appx.local`
 * Need to add host file entry from `127.0.0.1 appx.local`
 * Then should be able to access the app at http://appx.local/api/secdata/aapl/symbol
+
+## Deploying Docker Compose to ECS
+* Install the ECS CLI: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI_installation.html
+* Configure it: http://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI_Configuration.html
+    * Set the cluster if already created, otherwise create one
+* Deploy to ECS `ecs-cli compose --file docker-compose.prod.yml up`
